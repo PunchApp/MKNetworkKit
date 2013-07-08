@@ -422,4 +422,12 @@
  */
 @property (nonatomic, assign) BOOL shouldSendAcceptLanguageHeader;
 
+
+
+/********************** Fork Methods ********************/
+- (void) pause;
+- (void) resume;
+
+- (BOOL) isPaused;
+
 @end

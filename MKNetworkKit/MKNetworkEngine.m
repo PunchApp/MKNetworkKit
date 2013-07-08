@@ -763,4 +763,18 @@ static NSOperationQueue *_sharedNetworkQueue;
   if(error) DLog(@"%@", error);
 }
 
+#pragma mark - My Fork Methods
+/********************** Fork Methods ********************/
+- (void) pause{
+    [_sharedNetworkQueue setSuspended:YES];
+}
+
+- (void) resume{
+    [_sharedNetworkQueue setSuspended:NO];
+}
+
+- (BOOL) isPaused{
+    return _sharedNetworkQueue.isSuspended;
+}
+
 @end
