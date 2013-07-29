@@ -925,6 +925,9 @@ OSStatus extractIdentityAndTrust(CFDataRef inPKCS12Data,
       
       [self.request setHTTPBody:[self bodyData]];
     }
+      
+      NSString* accept_language = self.shouldSendAcceptLanguageHeader ? [self languagesFromLocale] : nil;
+      [self.request setValue:accept_language forHTTPHeaderField:@"Accept-Language"];
     
     dispatch_async(dispatch_get_main_queue(), ^{
       self.connection = [[NSURLConnection alloc] initWithRequest:self.request
