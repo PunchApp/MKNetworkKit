@@ -27,6 +27,8 @@
 
 #import <ImageIO/ImageIO.h>
 
+#import "NSLocaleCustomFormats.h"
+
 #ifdef __OBJC_GC__
 #error MKNetworkKit does not support Objective-C Garbage Collection
 #endif
@@ -1339,7 +1341,7 @@ totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite {
 }
 
 - (NSString*)languagesFromLocale {
-    return [NSString stringWithFormat:@"%@, en-us", [[NSLocale preferredLanguages] componentsJoinedByString:@", "]];
+    return [NSString stringWithFormat:@"%@, en-us", [[NSLocaleCustomFormats preferredLanguages] componentsJoinedByString:@", "]];
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
