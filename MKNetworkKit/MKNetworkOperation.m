@@ -930,6 +930,7 @@ OSStatus extractIdentityAndTrust(CFDataRef inPKCS12Data,
       
       NSString* accept_language = self.shouldSendAcceptLanguageHeader ? [self languagesFromLocale] : nil;
       [self.request setValue:accept_language forHTTPHeaderField:@"Accept-Language"];
+      [self.request setValue:@"gzip" forHTTPHeaderField:@"Accept-Encoding"];
     
     dispatch_async(dispatch_get_main_queue(), ^{
       self.connection = [[NSURLConnection alloc] initWithRequest:self.request
@@ -1335,8 +1336,9 @@ totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite {
     // http://lists.apple.com/archives/macnetworkprog/2009/Sep/msg00022.html
     // http://stackoverflow.com/questions/5695914/nsurlrequest-where-an-app-can-find-the-default-headers-for-http-request
     NSString* accept_language = self.shouldSendAcceptLanguageHeader ? [self languagesFromLocale] : nil;
-    [r setValue:accept_language forHTTPHeaderField:@"Accept-Language"];
+      [r setValue:accept_language forHTTPHeaderField:@"Accept-Language"];
   }
+    
   return r;
 }
 
