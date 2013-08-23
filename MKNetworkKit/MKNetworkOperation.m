@@ -687,6 +687,8 @@ OSStatus extractIdentityAndTrust(CFDataRef inPKCS12Data,
   [headersDictionary enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
     [self.request addValue:obj forHTTPHeaderField:key];
   }];
+    
+    [self.request addValue:@"gzip" forHTTPHeaderField:@"Accept-Encoding"];
 }
 
 -(void) addHeader:(NSString*)key withValue:(NSString*)value {
@@ -930,7 +932,6 @@ OSStatus extractIdentityAndTrust(CFDataRef inPKCS12Data,
       
       NSString* accept_language = self.shouldSendAcceptLanguageHeader ? [self languagesFromLocale] : nil;
       [self.request setValue:accept_language forHTTPHeaderField:@"Accept-Language"];
-      [self.request setValue:@"gzip" forHTTPHeaderField:@"Accept-Encoding"];
     
     dispatch_async(dispatch_get_main_queue(), ^{
       self.connection = [[NSURLConnection alloc] initWithRequest:self.request
