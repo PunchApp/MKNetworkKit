@@ -374,6 +374,8 @@ static NSOperationQueue *_sharedNetworkQueue;
       [urlString appendFormat:@"%@", path];
     else if (path != nil)
       [urlString appendFormat:@"/%@", path];
+  }else{
+      [urlString appendString:@"/"];
   }
 
   
