@@ -655,7 +655,7 @@ OSStatus extractIdentityAndTrust(CFDataRef inPKCS12Data,
     
     if(finalURL == nil) {
       
-      DLog(@"Cannot create a URL with %@ and parameters %@ and method %@", aURLString, self.fieldsToBePosted, method);
+      //DLog(@"Cannot create a URL with %@ and parameters %@ and method %@", aURLString, self.fieldsToBePosted, method);
       return nil;
     }
     
@@ -1149,10 +1149,10 @@ OSStatus extractIdentityAndTrust(CFDataRef inPKCS12Data,        // 5
           
           // invalid or revoked certificate
           if(self.shouldContinueWithInvalidCertificate) {
-            DLog(@"Certificate is invalid, but self.shouldContinueWithInvalidCertificate is YES");
+            //DLog(@"Certificate is invalid, but self.shouldContinueWithInvalidCertificate is YES");
             [challenge.sender useCredential:[NSURLCredential credentialForTrust:challenge.protectionSpace.serverTrust] forAuthenticationChallenge:challenge];
           } else {
-            DLog(@"Certificate is invalid, continuing without credentials. Might result in 401 Unauthorized");
+            //DLog(@"Certificate is invalid, continuing without credentials. Might result in 401 Unauthorized");
             [challenge.sender continueWithoutCredentialForAuthenticationChallenge:challenge];
           }
         }
@@ -1268,7 +1268,7 @@ OSStatus extractIdentityAndTrust(CFDataRef inPKCS12Data,        // 5
       NSString *bytesText = [rangeString substringWithRange:NSMakeRange(6, [rangeString length] - 7)];
       self.startPosition = [bytesText integerValue];
       self.downloadedDataSize = self.startPosition;
-      DLog(@"Resuming at %lu bytes", (unsigned long) self.startPosition);
+      //DLog(@"Resuming at %lu bytes", (unsigned long) self.startPosition);
     }
   }
   
@@ -1354,7 +1354,7 @@ totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite {
   if (self.response.statusCode >= 300 && self.response.statusCode < 400) {
     
     if(self.response.statusCode == 301) {
-      DLog(@"%@ has moved to %@", self.url, [self.response.URL absoluteString]);
+      //DLog(@"%@ has moved to %@", self.url, [self.response.URL absoluteString]);
     }
     else if(self.response.statusCode == 304) {
       
@@ -1364,10 +1364,10 @@ totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite {
       }
     }
     else if(self.response.statusCode == 307) {
-      DLog(@"%@ temporarily redirected", self.url);
+      //DLog(@"%@ temporarily redirected", self.url);
     }
     else {
-      DLog(@"%@ returned status %d", self.url, (int) self.response.statusCode);
+      //DLog(@"%@ returned status %d", self.url, (int) self.response.statusCode);
     }
     
   } else if (self.response.statusCode >= 400 && self.response.statusCode < 600 && ![self isCancelled]) {
@@ -1444,7 +1444,7 @@ totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite {
   if([self responseData] == nil) return nil;
   NSError *error = nil;
   id returnValue = [NSJSONSerialization JSONObjectWithData:[self responseData] options:0 error:&error];
-  if(error) DLog(@"JSON Parsing Error: %@", error);
+  //if(error) DLog(@"JSON Parsing Error: %@", error);
   return returnValue;
 }
 
@@ -1467,7 +1467,7 @@ totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite {
     id returnValue = [NSJSONSerialization JSONObjectWithData:[self responseData] options:options error:&error];
     if(error) {
       
-      DLog(@"JSON Parsing Error: %@", error);
+      //DLog(@"JSON Parsing Error: %@", error);
       jsonDecompressionHandler(nil);
       return;
     }
@@ -1509,7 +1509,7 @@ totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite {
 -(void) operationFailedWithError:(NSError*) error {
   
   self.error = error;
-  DLog(@"%@, [%@]", self, [self.error localizedDescription]);
+  //DLog(@"%@, [%@]", self, [self.error localizedDescription]);
   for(MKNKErrorBlock errorBlock in self.errorBlocks)
     errorBlock(error);
   
@@ -1517,7 +1517,7 @@ totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite {
     errorBlock(self, error);
   
 #if TARGET_OS_IPHONE
-  DLog(@"State: %d", [[UIApplication sharedApplication] applicationState]);
+  //DLog(@"State: %d", [[UIApplication sharedApplication] applicationState]);
   if([[UIApplication sharedApplication] applicationState] == UIApplicationStateBackground)
     [self showLocalNotification];
 #endif

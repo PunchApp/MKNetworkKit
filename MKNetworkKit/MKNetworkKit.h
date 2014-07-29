@@ -26,10 +26,6 @@
 #ifndef MKNetworkKit_MKNetworkKit_h
 #define MKNetworkKit_MKNetworkKit_h
 
-#ifndef __IPHONE_4_0
-#error "MKNetworkKit uses features only available in iOS SDK 4.0 and later."
-#endif
-
 #if TARGET_OS_IPHONE
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
@@ -41,6 +37,12 @@
 #else
 #define DO_GCD_RETAIN_RELEASE 1
 #endif
+#endif
+
+#ifdef DEBUG
+#define DLog( s, ... ) NSLog( @"<%p %@:(%d)> %@", self, [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__] )
+#else
+#define DLog( s, ... )
 #endif
 
 //#ifdef DEBUG

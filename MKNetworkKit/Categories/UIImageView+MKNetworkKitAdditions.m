@@ -95,11 +95,11 @@ const float kFreshLoadAnimationDuration = 0.35f;
                                             
                                           } errorHandler:^(MKNetworkOperation *completedOperation, NSError *error) {
                                             
-                                            DLog(@"%@", error);
+                                            //DLog(@"%@", error);
                                           }];
   } else {
     
-      DLog(@"No default engine found and imageCacheEngine parameter is null");
+      //DLog(@"No default engine found and imageCacheEngine parameter is null");
   }
   
   return self.imageFetchOperation;

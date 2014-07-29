@@ -52,8 +52,8 @@
   NSData *data = [NSJSONSerialization dataWithJSONObject:self
                                                  options:0 // non-pretty printing
                                                    error:&error];
-  if(error)
-    DLog(@"JSON Parsing Error: %@", error);
+  //if(error)
+    //DLog(@"JSON Parsing Error: %@", error);
   
   return [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
 }
@@ -65,8 +65,8 @@
   NSData *data = [NSPropertyListSerialization dataWithPropertyList:self
                                                             format:NSPropertyListXMLFormat_v1_0
                                                            options:0 error:&error];
-  if(error)
-    DLog(@"JSON Parsing Error: %@", error);
+  //if(error)
+    //DLog(@"JSON Parsing Error: %@", error);
   
   return [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
 }

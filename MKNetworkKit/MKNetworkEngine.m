@@ -207,7 +207,7 @@ static NSOperationQueue *_sharedNetworkQueue;
 {
   if([self.reachability currentReachabilityStatus] == ReachableViaWiFi)
   {
-    DLog(@"Server [%@] is reachable via Wifi", self.hostName);
+    //DLog(@"Server [%@] is reachable via Wifi", self.hostName);
     [_sharedNetworkQueue setMaxConcurrentOperationCount:6];
     
     [self checkAndRestoreFrozenOperations];
@@ -216,17 +216,17 @@ static NSOperationQueue *_sharedNetworkQueue;
   {
     if(self.wifiOnlyMode) {
       
-      DLog(@" Disabling engine as server [%@] is reachable only via cellular data.", self.hostName);
+      //DLog(@" Disabling engine as server [%@] is reachable only via cellular data.", self.hostName);
       [_sharedNetworkQueue setMaxConcurrentOperationCount:0];
     } else {
-      DLog(@"Server [%@] is reachable only via cellular data", self.hostName);
+      //DLog(@"Server [%@] is reachable only via cellular data", self.hostName);
       [_sharedNetworkQueue setMaxConcurrentOperationCount:2];
       [self checkAndRestoreFrozenOperations];
     }
   }
   else if([self.reachability currentReachabilityStatus] == NotReachable)
   {
-    DLog(@"Server [%@] is not reachable", self.hostName);
+    //DLog(@"Server [%@] is not reachable", self.hostName);
     [self freezeOperations];
   }
   
@@ -280,7 +280,7 @@ static NSOperationQueue *_sharedNetworkQueue;
   if(self.hostName) {
     [MKNetworkEngine cancelOperationsContainingURLString:self.hostName];
   } else {
-    DLog(@"Host name is not set. Cannot cancel operations.");
+    //DLog(@"Host name is not set. Cannot cancel operations.");
   }
 }
 
@@ -290,8 +290,8 @@ static NSOperationQueue *_sharedNetworkQueue;
   
   NSError *error = nil;
   NSArray *files = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:[self cacheDirectoryName] error:&error];
-  if(error)
-    DLog(@"%@", error);
+  //if(error)
+   //DLog(@"%@", error);
   
   NSArray *pendingOperations = [files filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
     
@@ -306,8 +306,8 @@ static NSOperationQueue *_sharedNetworkQueue;
     [self enqueueOperation:pendingOperation];
     NSError *error2 = nil;
     [[NSFileManager defaultManager] removeItemAtPath:archivePath error:&error2];
-    if(error2)
-      DLog(@"%@", error2);
+    //if(error2)
+      //DLog(@"%@", error2);
   }
 }
 
@@ -356,7 +356,7 @@ static NSOperationQueue *_sharedNetworkQueue;
   
   if(self.hostName == nil) {
     
-    DLog(@"Hostname is nil, use operationWithURLString: method to create absolute URL operations");
+    //DLog(@"Hostname is nil, use operationWithURLString: method to create absolute URL operations");
     return nil;
   }
   
@@ -523,7 +523,7 @@ static NSOperationQueue *_sharedNetworkQueue;
 #ifdef DEBUG
   // I could enable caching here, but that hits performance and inturn affects table view scrolling
   // if imageAtURL is called for loading thumbnails.
-  if(![self isCacheEnabled]) DLog(@"imageAtURL:onCompletion: requires caching to be enabled.");
+  //if(![self isCacheEnabled]) DLog(@"imageAtURL:onCompletion: requires caching to be enabled.");
 #endif
     
     if (url == nil) {
@@ -557,7 +557,7 @@ static NSOperationQueue *_sharedNetworkQueue;
 #ifdef DEBUG
   // I could enable caching here, but that hits performance and inturn affects table view scrolling
   // if imageAtURL is called for loading thumbnails.
-  if(![self isCacheEnabled]) DLog(@"imageAtURL:size:onCompletion: requires caching to be enabled.");
+  //if(![self isCacheEnabled]) DLog(@"imageAtURL:size:onCompletion: requires caching to be enabled.");
 #endif
     
     if (url == nil) {
@@ -578,7 +578,7 @@ static NSOperationQueue *_sharedNetworkQueue;
   } errorHandler:^(MKNetworkOperation *completedOperation, NSError *error) {
       if (errorBlock)
           errorBlock(completedOperation, error);
-      DLog(@"%@", error);
+      //DLog(@"%@", error);
   }];
   
   [self enqueueOperation:op];
@@ -749,20 +749,20 @@ static NSOperationQueue *_sharedNetworkQueue;
   NSError *error = nil;
   NSArray *directoryContents = [[NSFileManager defaultManager]
                                 contentsOfDirectoryAtPath:[self cacheDirectoryName] error:&error];
-  if(error) DLog(@"%@", error);
+  //if(error) DLog(@"%@", error);
   
   error = nil;
   for(NSString *fileName in directoryContents) {
     
     NSString *path = [[self cacheDirectoryName] stringByAppendingPathComponent:fileName];
     [[NSFileManager defaultManager] removeItemAtPath:path error:&error];
-    if(error) DLog(@"%@", error);
+    //if(error) DLog(@"%@", error);
   }
   
   error = nil;
   NSString *cacheInvalidationPlistFilePath = [[self cacheDirectoryName] stringByAppendingPathExtension:@"plist"];
   [[NSFileManager defaultManager] removeItemAtPath:cacheInvalidationPlistFilePath error:&error];
-  if(error) DLog(@"%@", error);
+  //if(error) DLog(@"%@", error);
 }
 
 #pragma mark - My Fork Methods
